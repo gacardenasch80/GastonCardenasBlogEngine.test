@@ -1,0 +1,42 @@
+﻿@model GastonCardenasBlogEngine.test.Web.Areas.PublishFlow.Models.Publish.PostInputModel
+@{ ViewData["Title"] = $"Post Detail - {Model.Title}";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Post Detail (@Model.PostStatusName)</h1>
+
+        <form asp-antiforgery="true">
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" />
+                @Html.ValidationMessageFor(t => t.Title)
+            </div>
+            <div class="form-group">
+                <label asp-for="Text"></label>
+                <textarea asp-for="Text" rows="10" class="form-control"></textarea>
+                @Html.ValidationMessageFor(t => t.Text)
+            </div>
+            @if (Model.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.Draft && User.IsInRole("Writer"))
+            {
+<button type="submit" name="SendType" value="SAVE" class="btn btn-default">Save</button>            }
+            @if (Model.IsEditMode)
+            {
+@if (Model.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.Draft && User.IsInRole("Writer"))
+{
+<button type="submit" name="SendType" value="APPROVE" class="btn btn-primary">Send for approval</button>                }
+                @if (Model.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.PendingPublishApproval && User.IsInRole("Editor"))
+                {
+<button type="submit" name="SendType" value="REJECT" class="btn btn-warning">Reject</button>
+                    <button type="submit" name="SendType" value="PUBLISH" class="btn btn-success">Publish</button>                }
+                                @if ((Model.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.Published || Model.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.Draft) && User.IsInRole("Writer"))
+                                {
+                <button type="submit" name="SendType" value="DELETE" class="btn btn-danger">Delete</button>                }            }
+            <input type="hidden" asp-for="IsEditMode" />
+        </form>
+    </div>
+    <div class="col-sm-12">
+        <a asp-area="PublishFlow" asp-controller="Publish" asp-action="Index" class="btn btn-default pull-right"> <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to posts</a>
+    </div>
+</div>

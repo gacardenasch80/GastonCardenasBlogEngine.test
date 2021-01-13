@@ -1,0 +1,19 @@
+﻿@model GastonCardenasBlogEngine.test.Web.Models.Login.LoginInputModel
+@{ ViewData["Title"] = "Users Login"; }
+
+<form asp-antiforgery="true" class="form-signin">
+    @Html.ValidationSummary(true)
+    <h2 class="form-signin-heading">Please sign in</h2>
+
+    <label asp-for="Username" class="sr-only"></label>
+    <input asp-for="Username" class="form-control" placeholder="Username" />
+    @Html.ValidationMessageFor(t => t.Username)
+
+    <label asp-for="Password" class="sr-only"></label>
+    <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+    @Html.ValidationMessageFor(t => t.Password)
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <br />
+    @Html.ValidationMessage("Login")
+</form>

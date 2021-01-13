@@ -1,0 +1,19 @@
+﻿@model GastonCardenasBlogEngine.test.Web.Models.Home.HomeViewModel
+@{ ViewData["Title"] = "Home Page"; }
+
+<div class="row">
+    @foreach (var post in Model.Posts)
+    {
+<div class="col-md-4">
+    <h2>@post.Title</h2>
+    @if (post.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.Published && post.ApprovalDate.HasValue)
+    {
+<small>Published on: @post.ApprovalDate.Value.ToString("dd-MM-yyyy HH:mm")</small> }
+                else
+                {
+<small>Unpublished</small>}
+    <p>By: <a href="javascript:;">@post.AuthorName</a></p>
+    <p><a class="btn btn-default" href="@Url.Action("Index", "Posts", new { id=post.PostId })" role="button">View more &raquo;</a></p>
+</div>}
+
+</div>

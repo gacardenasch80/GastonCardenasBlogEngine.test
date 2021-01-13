@@ -1,0 +1,57 @@
+﻿@model GastonCardenasBlogEngine.test.Web.Models.Posts.PostDetailViewModel
+@{ ViewData["Title"] = Model.Post.Title; }
+
+<div class="row">
+
+    <div class="col-sm-12 blog-main">
+        <div class="blog-post">
+            <h2 class="blog-post-title">@Model.Post.Title</h2>
+            <p class="blog-post-meta">
+                @if (Model.Post.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.Published && Model.Post.ApprovalDate.HasValue)
+                {
+    @Model.Post.ApprovalDate.Value.ToString("dd-MM-yyyy HH:mm")}
+                By: <a href="javascript:;">@Model.Post.AuthorName</a>
+            </p>
+
+            <p>@Html.Raw(Model.Post.Text)</p>
+        </div>
+        <div class="blog-post">
+            @if (Model.Post.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.Published && Model.Post.ApprovalDate.HasValue)
+            {
+<h3>Comments</h3>
+                @if (!Model.Post.PostComments.Any())
+                {
+<p>No comments, be the first one to comment.</p>                }
+                                @foreach (var comment in Model.Post.PostComments)
+                                {
+                <blockquote>
+                    <strong>@comment.AuthorName</strong>
+                    <small>@comment.CreationtDate.ToString("dd-MM-yyyy HH:mm")</small>
+                    <p>@comment.Comment</p>
+                </blockquote>                }
+
+                                                <h3>Add a comment</h3>
+                                                                <div class="bs-example" data-example-id="basic-forms">
+                                                                    <form asp-antiforgery="true">
+                                                                        @Html.ValidationSummary(true)
+                                                                        <div class="form-group">
+                                                                            <label asp-for="AuthorName"></label>
+                                                                            <input asp-for="AuthorName" class="form-control" />
+                                                                            @Html.ValidationMessageFor(t => t.AuthorName)
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label asp-for="AuthorEmail"></label>
+                                                                            <input asp-for="AuthorEmail" class="form-control" />
+                                                                            @Html.ValidationMessageFor(t => t.AuthorEmail)
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label asp-for="Comment"></label>
+                                                                            <textarea asp-for="Comment" rows="5" class="form-control"></textarea>
+                                                                            @Html.ValidationMessageFor(t => t.Comment)
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-default">Submit</button>
+                                                                    </form>
+                                                                </div>            }
+        </div>
+    </div>
+</div>
