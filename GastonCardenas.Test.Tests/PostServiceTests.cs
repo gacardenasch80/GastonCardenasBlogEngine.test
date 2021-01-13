@@ -8,7 +8,6 @@ using GastonCardenas.Test.Infrastructure.Data;
 using GastonCardenas.Test.Infrastructure.Data.Repository;
 using GastonCardenasBlogEngine.test.Web.App;
 
-
 namespace GastonCardenas.Test.Tests
 {
     public class PostsServiceTest
