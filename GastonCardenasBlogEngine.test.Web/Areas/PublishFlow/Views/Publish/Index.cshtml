@@ -42,6 +42,8 @@
     <div class="col-sm-12">
         @if (User.IsInRole("Writer"))
         {
-<a asp-area="PublishFlow" asp-controller="Publish" asp-action="Post" class="btn btn-primary pull-right"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Post</a>}
+            <a asp-area="PublishFlow" asp-controller="Publish" asp-action="Post" class="btn btn-primary pull-right"> 
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Post</a>
+        }
     </div>
 </div>

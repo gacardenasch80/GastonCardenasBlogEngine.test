@@ -20,7 +20,7 @@
             </div>
             @if (Model.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.Draft && User.IsInRole("Writer"))
             {
-<button type="submit" name="SendType" value="SAVE" class="btn btn-default">Save</button>            }
+<button type="submit" name="SendType" value="SAVE" class="btn btn-success">Save</button>            }
             @if (Model.IsEditMode)
             {
 @if (Model.PostStatusId == (int)GastonCardenas.Test.Domain.Enum.PostStatusEnum.Draft && User.IsInRole("Writer"))
